@@ -1,0 +1,50 @@
+# The behavior of RuboCop can be controlled via the .rubocop.yml
+# configuration file. It makes it possible to enable/disable
+# certain cops (checks) and to alter their behavior if they accept
+# any parameters. The file can be placed either in your home
+# directory or in some project directory.
+#
+# RuboCop will start looking for the configuration file in the directory
+# where the inspected file is and continue its way up to the root directory.
+#
+
+require:
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 3.1.1
+  TargetRailsVersion: 7.0.3
+  Exclude:
+    - '**/db/migrate/*'
+    - '**/Gemfile.lock'
+    - '**/Rakefile'
+    - '**/rails'
+    - '**/vendor/**/*'
+    - '**/spec_helper.rb'
+    - 'node_modules/**/*'
+    - 'bin/*'
+  NewCops: enable 
+Gemspec/DeprecatedAttributeAssignment: # new in 1.30 
+  Enabled: true
+Gemspec/RequireMFA: # new in 1.23 
+  Enabled: true 
+Layout/LineContinuationLeadingSpace: # new in 1.31 
+  Enabled: true 
+Layout/LineContinuationSpacing: # new in 1.31 
+  Enabled: true 
+Layout/LineEndStringConcatenationIndentation: # new in 1.18 
+  Enabled: true 
+Layout/SpaceBeforeBrackets: # new in 1.7 
+  Enabled: true 
+Lint/AmbiguousAssignment: # new in 1.7 
+  Enabled: true 
+Lint/AmbiguousOperatorPrecedence: # new in 1.21 
+  Enabled: true 
+Lint/AmbiguousRange: # new in 1.19 
+  Enabled: true 
+Lint/ConstantOverwrittenInRescue: # new in 1.31 
+  Enabled: true 
+Lint/DeprecatedConstants: # new in 1.8 
+  Enabled: true 
+Lint/DuplicateBranch: # new in 1.3 
+  Enabled: true
