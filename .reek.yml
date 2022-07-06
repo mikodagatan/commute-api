@@ -25,6 +25,13 @@ detectors:
   UncommunicativeVariableName:
     accept:
       - e
+      - t
+
+directories:
+  "db/":
+    FeatureEnvy:
+      enabled: false
+  
 
 exclude_paths:
-  - db/
+  - db
