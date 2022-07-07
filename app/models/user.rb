@@ -3,6 +3,11 @@
 class User < ApplicationRecord
   has_secure_password
   has_one :profile, dependent: :destroy
+  has_one :company, dependent: :destroy,
+                    class_name: 'Transport::Company',
+                    foreign_key: :owner_id,
+                    inverse_of: :owner
+
   validates :email, presence: true, uniqueness: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password,

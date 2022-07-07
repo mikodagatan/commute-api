@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class UserBlueprint < Blueprinter::Base
-  fields :email
+  field :id
+  field :email
 
   view :normal do
     association :profile, blueprint: ProfileBlueprint

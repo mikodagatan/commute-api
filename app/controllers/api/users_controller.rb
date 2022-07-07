@@ -23,8 +23,7 @@ module Api
       if @user.save
         render json: UserBlueprint.render(@user), status: :created
       else
-        render json: { errors: @user.errors.full_messages },
-               status: :unprocessable_entity
+        create_error
       end
     end
 
@@ -33,8 +32,7 @@ module Api
       if @user.update(update_params)
         render json: UserBlueprint.render(@user), status: :ok
       else
-        render json: { errors: @user.errors.full_messages },
-               status: :not_acceptable
+        update_error
       end
     end
 
@@ -49,7 +47,7 @@ module Api
     def user
       @user ||= User.find!(params[:id])
     rescue ActiveRecord::RecordNotFound
-      render json: { errors: 'User not found' }, staus: :not_found
+      not_found_error
     end
 
     def user_params

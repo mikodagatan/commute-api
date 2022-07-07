@@ -5,22 +5,20 @@ module Api
     before_action :authorize_request, except: :login
 
     # POST /api/auth/login
-    def login # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+    def login # rubocop:disable Metrics/MethodLength
       @user = User.find_by!(email: params[:email])
 
       if @user&.authenticate(params[:password])
         token = JsonWebToken.encode(user_id: @user.id)
-        time = 24.hours.from_now
-        render json: { token:,
-                       exp: Formats::DateTime.jwt(time).to_i,
-                       email: @user.email },
+        exp = Formats::DateTime.jwt(24.hours.from_now)
+        render json: LoginBlueprint.render(@user, token:, exp:),
                status: :ok
       else
-        render json: { error: 'unauthorized' }, status: :unauthorized
+        render json: { error: t('errors.messages.unauthorized') },
+               status: :unauthorized
       end
     rescue ActiveRecord::RecordNotFound
-      render json: { error: "User (#{params[:email]}) not found" },
-             status: :unprocessable_entity
+      not_found_error
     end
 
     private

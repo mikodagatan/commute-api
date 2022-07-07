@@ -3,8 +3,6 @@
 class Profile < ApplicationRecord
   belongs_to :user
 
-  SEX_OPTIONS = %w[male female].freeze
-
   validates :birthday, presence: true
   validates :first_name, presence: true
   validates :last_name, presence: true

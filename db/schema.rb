@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_07_050842) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_07_085526) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -27,6 +27,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_07_050842) do
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
+  create_table "transport_companies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "owner_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_transport_companies_on_owner_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -35,4 +43,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_07_050842) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "transport_companies", "users", column: "owner_id"
 end

@@ -10,5 +10,8 @@ Rails.application.routes.draw do
     resources :users, except: %i[new edit] do
       resource :profile, only: %i[create update]
     end
+    namespace :transport do
+      resources :companies
+    end
   end
 end

@@ -2,34 +2,39 @@
 
 module Api
   class ProfilesController < ApplicationController
+    before_action :user, except: [:create]
+
     # POST /api/profiles
     def create
       @profile = @user.profile.build(profile_params)
       if @profile.save
         render json: ProfileBlueprint.render(@profile), status: :created
       else
-        render json: { errors: @profile.errors.full_messages },
-               status: :unprocessable_entity
+        create_error
       end
     end
 
-    # PATCH /api/profiles/{uuid}
+    # PATCH /api/profiles/{user_uuid}
     def update
       @profile = @user.profile
       if @profile.update(profile_params)
         render json: ProfileBlueprint.render(@profile)
       else
-        render json: { errors: @profile.errors.full_messages },
-               status: :not_acceptable
+        update_error
       end
+    end
+
+    # Deleted only if User is deleted
+    def destroy
+      @profile = @user.profile.delete
     end
 
     private
 
     def user
-      @user ||= User.find!(id: params[:user_id])
+      @user ||= User.find!(id: params[:user_id] || params[:id])
     rescue ActiveRecord::RecordNotFound
-      render json: { errors: 'User not found' }, status: :not_found
+      not_found_error('User')
     end
 
     def profile_params
