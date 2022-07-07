@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   # root "articles#index"
   namespace :api do
     post '/auth/login', to: 'auth#login'
-    resources :users do
-      resource :profile
+    resources :users, except: %i[new edit] do
+      resource :profile, only: %i[create update]
     end
   end
 end

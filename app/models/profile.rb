@@ -7,7 +7,6 @@ class Profile < ApplicationRecord
 
   validates :birthday, presence: true
   validates :first_name, presence: true
-  validates :middle_initial, presence: true
   validates :last_name, presence: true
   validates :sex, presence: true,
                   inclusion: %w[male female]
@@ -25,4 +24,9 @@ end
 #  sex            :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  user_id        :bigint
+#
+# Indexes
+#
+#  index_profiles_on_user_id  (user_id)
 #

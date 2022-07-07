@@ -15,7 +15,7 @@ module Formats
       # e.g. def default(datetime)
       FORMATS.each do |key, value|
         define_method(:"#{key}") do |datetime = nil|
-          raise "Please supply a DateTime in method_name(datetime). Format: '#{value}'" unless datetime
+          return value unless datetime
 
           datetime&.to_date&.strftime(value)
         end
