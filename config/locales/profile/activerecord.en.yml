@@ -1,0 +1,10 @@
+en:
+  activerecord:
+    models:
+      user: Profile
+    attributes:
+      birthday: Birthday
+      first_name: First Name
+      middle_initial: Middle Initial
+      last_name: Last Name
+      sex: Sex

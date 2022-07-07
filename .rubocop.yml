@@ -15,7 +15,7 @@ AllCops:
   TargetRubyVersion: 3.1.1
   TargetRailsVersion: 7.0.3
   Exclude:
-    - '**/db/migrate/*'
+    - '**/db/**/*'
     - '**/Gemfile.lock'
     - '**/Rakefile'
     - '**/rails'

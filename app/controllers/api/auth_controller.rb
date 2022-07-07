@@ -10,9 +10,9 @@ module Api
 
       if @user&.authenticate(params[:password])
         token = JsonWebToken.encode(user_id: @user.id)
-        time = 24.hours.from_now.to_i
+        time = 24.hours.from_now
         render json: { token:,
-                       exp: Formats::DateTime.jwt(time),
+                       exp: Formats::DateTime.jwt(time).to_i,
                        email: @user.email },
                status: :ok
       else

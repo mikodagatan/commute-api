@@ -3,7 +3,7 @@
 module Api
   # Responsible for handling CRUD of User.
   class UsersController < ApplicationController
-    before_action :authorize_request
+    before_action :authorize_request, except: :create
     before_action :user, except: %i[create index]
 
     # GET /api/users
