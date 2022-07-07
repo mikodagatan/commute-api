@@ -2,15 +2,15 @@
 
 module Api
   class ProfilesController < ApplicationController
-    before_action :user, except: [:create]
+    before_action :user
 
     # POST /api/profiles
     def create
-      @profile = @user.profile.build(profile_params)
+      @profile = @user.build_profile(profile_params)
       if @profile.save
         render json: ProfileBlueprint.render(@profile), status: :created
       else
-        create_error
+        create_error(@profile)
       end
     end
 
@@ -20,7 +20,7 @@ module Api
       if @profile.update(profile_params)
         render json: ProfileBlueprint.render(@profile)
       else
-        update_error
+        update_error(@profile)
       end
     end
 
@@ -32,13 +32,13 @@ module Api
     private
 
     def user
-      @user ||= User.find!(id: params[:user_id] || params[:id])
+      @user ||= User.find(params[:user_id] || params[:id])
     rescue ActiveRecord::RecordNotFound
       not_found_error('User')
     end
 
     def profile_params
-      params.require(:profile).permit(
+      params.permit(
         :birthday, :first_name, :middle_initial, :last_name, :sex
       )
     end

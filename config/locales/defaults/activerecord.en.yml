@@ -4,7 +4,7 @@ en:
       messages:
         record_invalid: 'Cannot save because of the following errors: %{errors}'
   errors:
-    format: '%{attribute}%{message}'
+    format: '%{attribute} %{message}'
     messages:
       blank: can't be blank
       inclusion: is not one of the options

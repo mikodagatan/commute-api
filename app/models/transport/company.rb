@@ -3,6 +3,8 @@
 module Transport
   class Company < ApplicationRecord
     belongs_to :owner, class_name: 'User'
+    has_many :driver_profiles, dependent: :nullify,
+                               class_name: 'Transport::DriverProfile'
 
     validates :name, presence: true,
                      length: { minimum: 5 }

@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_07_085526) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_07_112718) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
   create_table "profiles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.bigint "user_id"
+    t.uuid "user_id"
     t.string "first_name"
     t.string "middle_initial"
     t.string "last_name"
@@ -35,6 +36,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_07_085526) do
     t.index ["owner_id"], name: "index_transport_companies_on_owner_id"
   end
 
+  create_table "transport_driver_profiles", force: :cascade do |t|
+    t.uuid "user_id"
+    t.uuid "company_id"
+    t.string "license_number"
+    t.boolean "confirmed", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_transport_driver_profiles_on_company_id"
+    t.index ["user_id"], name: "index_transport_driver_profiles_on_user_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -44,4 +56,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_07_085526) do
   end
 
   add_foreign_key "transport_companies", "users", column: "owner_id"
+  add_foreign_key "transport_driver_profiles", "transport_companies", column: "company_id"
+  add_foreign_key "transport_driver_profiles", "users"
 end
