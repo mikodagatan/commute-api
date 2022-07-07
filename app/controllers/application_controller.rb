@@ -33,5 +33,4 @@ class ApplicationController < ActionController::API
   def model
     controller_name.singularize.capitalize
   end
-
 end
