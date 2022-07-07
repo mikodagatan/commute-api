@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProfileBlueprint < Blueprinter::Base
   field :id
   field :birthday
