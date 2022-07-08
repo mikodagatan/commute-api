@@ -3,8 +3,10 @@
 class UserBlueprint < Blueprinter::Base
   field :id
   field :email
-
-  view :normal do
-    association :profile, blueprint: ProfileBlueprint, default: {}
-  end
+  field :full_name
+  field :first_name
+  field :last_name
+  field :middle_initial
+  field :sex
+  field :birthday
 end

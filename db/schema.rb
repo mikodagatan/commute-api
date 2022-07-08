@@ -36,7 +36,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_07_112718) do
     t.index ["owner_id"], name: "index_transport_companies_on_owner_id"
   end
 
-  create_table "transport_driver_profiles", force: :cascade do |t|
+  create_table "transport_driver_profiles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
     t.uuid "company_id"
     t.string "license_number"
@@ -44,7 +44,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_07_112718) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_id"], name: "index_transport_driver_profiles_on_company_id"
-    t.index ["user_id"], name: "index_transport_driver_profiles_on_user_id"
+    t.index ["user_id", "id"], name: "index_transport_driver_profiles_on_user_id_and_id", unique: true
+    t.index ["user_id"], name: "index_transport_driver_profiles_on_user_id", unique: true
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

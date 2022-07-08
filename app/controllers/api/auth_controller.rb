@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Api
+module API
   class AuthController < ApplicationController
     before_action :authorize_request, except: :login
     before_action :user

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Api
+module API
   class ProfilesController < ApplicationController
     before_action :user
 
@@ -38,7 +38,7 @@ module Api
     end
 
     def profile_params
-      params.permit(
+      params.require(:profile).permit(
         :birthday, :first_name, :middle_initial, :last_name, :sex
       )
     end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Api
+module API
   # Responsible for handling CRUD of User.
   class UsersController < ApplicationController
     before_action :authorize_request, except: :create
@@ -8,7 +8,7 @@ module Api
 
     # GET /api/users
     def index
-      @users = User.all
+      @users = User.includes(:profile).all
       render ::Response.show_success(@users, view: :normal)
     end
 
@@ -55,13 +55,13 @@ module Api
     end
 
     def user_params
-      params.permit(
+      params.require(:user).permit(
         :avatar, :email, :password, :password_confirmation, :id
       )
     end
 
     def update_params
-      params.permit(:email)
+      params.require(:user).permit(:email)
     end
   end
 end

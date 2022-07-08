@@ -38,7 +38,7 @@ class Response
   # }
   #
   def not_found_error
-    { json: { error: I18n.t('errors.messages.not_found', model: custom_name) },
+    { json: { error: I18n.t('errors.messages.not_found', model: custom_name || model) },
       status: :not_found }
   end
 
@@ -58,8 +58,7 @@ class Response
   # }
   #
   def create_success
-    { json: blueprint.render(record, view:, root:),
-      status: :created }
+    { json: blueprint.render(record, view:, root:), status: :created }
   end
 
   # E.g.

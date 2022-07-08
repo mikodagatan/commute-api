@@ -10,7 +10,7 @@ end
 #
 # Table name: transport_driver_profiles
 #
-#  id             :bigint           not null, primary key
+#  id             :uuid             not null, primary key
 #  confirmed      :boolean          default(FALSE)
 #  license_number :string
 #  created_at     :datetime         not null
@@ -20,8 +20,9 @@ end
 #
 # Indexes
 #
-#  index_transport_driver_profiles_on_company_id  (company_id)
-#  index_transport_driver_profiles_on_user_id     (user_id)
+#  index_transport_driver_profiles_on_company_id      (company_id)
+#  index_transport_driver_profiles_on_user_id         (user_id) UNIQUE
+#  index_transport_driver_profiles_on_user_id_and_id  (user_id,id) UNIQUE
 #
 # Foreign Keys
 #

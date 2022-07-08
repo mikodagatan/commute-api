@@ -2,18 +2,22 @@
 
 class User < ApplicationRecord
   has_secure_password
+
   has_one :profile, dependent: :destroy
-  has_one :company, dependent: :destroy,
-                    class_name: 'Transport::Company',
-                    foreign_key: :owner_id,
-                    inverse_of: :owner
+  has_one :owned_company, dependent: :destroy,
+                          class_name: 'Transport::Company',
+                          foreign_key: :owner_id,
+                          inverse_of: :owner
   has_one :driver_profile, dependent: :destroy,
                            class_name: 'Transport::DriverProfile'
+  has_one :employee_company, through: :driver_profile,
+                             class_name: 'Transport::Company'
 
   has_one_attached :photo
 
-  validates :email, presence: true, uniqueness: true
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :email, presence: true,
+                    uniqueness: true,
+                    format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, length: { minimum: 6 },
                        if: -> { new_record? || password.present? }
 

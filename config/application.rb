@@ -6,7 +6,7 @@ require 'rails/all'
 
 Bundler.require(*Rails.groups)
 
-module CommuteApi
+module CommuteAPI
   class Application < Rails::Application
     config.load_defaults 7.0
     config.api_only = true

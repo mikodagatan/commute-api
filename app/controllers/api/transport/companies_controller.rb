@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Api
+module API
   module Transport
     class CompaniesController < ApplicationController
       before_action :company, except: %i[create index]
@@ -53,11 +53,7 @@ module Api
       end
 
       def company_params
-        params.permit(:name, :owner_id)
-      end
-
-      def blueprint
-        ::Transport::CompanyBlueprint
+        params.require(:company).permit(:name, :owner_id)
       end
     end
   end

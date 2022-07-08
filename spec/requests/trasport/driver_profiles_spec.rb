@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'API::Profiles', type: :request do
+RSpec.describe 'Trasport::DriverProfiles', type: :request do
   describe 'GET /index' do
     pending "add some examples (or delete) #{__FILE__}"
   end
