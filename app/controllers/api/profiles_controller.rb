@@ -10,7 +10,7 @@ module Api
       if @profile.save
         render json: ProfileBlueprint.render(@profile), status: :created
       else
-        create_error(@profile)
+        render ::Response.create_error(@profile)
       end
     end
 
@@ -20,13 +20,13 @@ module Api
       if @profile.update(profile_params)
         render json: ProfileBlueprint.render(@profile)
       else
-        update_error(@profile)
+        render ::Response.update_error(@profile)
       end
     end
 
-    # Deleted only if User is deleted
+    # Deleted only if User is deleted. No need response
     def destroy
-      @profile = @user.profile.delete
+      @user.profile.delete
     end
 
     private

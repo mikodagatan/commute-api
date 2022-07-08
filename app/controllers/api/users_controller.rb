@@ -9,43 +9,47 @@ module Api
     # GET /api/users
     def index
       @users = User.all
-      render json: UserBlueprint.render(@users, view: :normal), status: :ok
+      render ::Response.show_success(@users, view: :normal)
     end
 
     # GET /api/users/{uuid}
     def show
-      render json: UserBlueprint.render(@user, view: :normal), status: :ok
+      render ::Response.show_success(@users, view: :normal)
     end
 
     # POST /api/users
     def create
       @user = User.new(user_params)
       if @user.save
-        render json: UserBlueprint.render(@user), status: :created
+        render ::Response.create_success(@user)
       else
-        create_error
+        render ::Response.create_error(@user)
       end
     end
 
     # PATCH /api/users/{uuid}
     def update
       if @user.update(update_params)
-        render json: UserBlueprint.render(@user), status: :ok
+        render ::Response.update_success(@user)
       else
-        update_error
+        render ::Response.update_error(@user)
       end
     end
 
     # DELETE /api/users/{uuid}
     def destroy
-      @user.destroy
+      if @user.delete
+        render ::Response.destory_success(@user)
+      else
+        render ::Response.destroy_error
+      end
     end
 
     private
 
     # Find user through UUID
     def user
-      @user ||= User.find!(params[:id])
+      @user ||= User.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       not_found_error
     end

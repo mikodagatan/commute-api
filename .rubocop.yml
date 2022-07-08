@@ -50,3 +50,5 @@ Lint/DuplicateBranch: # new in 1.3
   Enabled: true
 Style/Documentation:
   Enabled: false
+Lint/MissingSuper:
+  Enabled: false

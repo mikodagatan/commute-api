@@ -11,4 +11,4 @@ en:
       not_found: '%{model} not found'
       cant_delete: "%{model} can't be deleted"
       unauthorized: Unauthorized
-
+      deleted: '%{model} deleted'

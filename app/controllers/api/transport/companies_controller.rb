@@ -3,49 +3,44 @@
 module Api
   module Transport
     class CompaniesController < ApplicationController
-      before_action :authorize_request
       before_action :company, except: %i[create index]
 
       # GET /api/transport/companies
       def index
-        companies = ::Transport::Company.all
-        render json: blueprint.render(companies),
-               status: :ok
+        @companies = ::Transport::Company.all
+        render ::Response.show_success(@companies, view: :normal)
       end
 
       # GET /api/transport/companies/{uuid}
       def show
-        render json: blueprint.render(@company),
-               status: :ok
+        render ::Response.show_success(@company)
       end
 
       # POST /api/transport/companies
       def create
         @company = ::Transport::Company.new(company_params)
         if @company.save
-          render json: blueprint.render(@company),
-                 status: :created
+          render ::Response.create_success(@company)
         else
-          create_error(@company)
+          render ::Response.create_error(@company)
         end
       end
 
       # PATCH /api/transport/companies/{uuid}
       def update
         if @company.update(company_params)
-          render json: blueprint.render(@company, root: 'company'),
-                 status: :ok
+          render ::Response.update_success(@company)
         else
-          update_error(@company)
+          render ::Response.update_error(@company)
         end
       end
 
       # DELETE /api/transport/companies/{uuid}
       def destroy
         if @company.delete
-          render json: 'deleted', status: :ok
+          render ::Response.destroy_success(@company)
         else
-          destroy_error
+          render ::Response.destroy_error(@company)
         end
       end
 

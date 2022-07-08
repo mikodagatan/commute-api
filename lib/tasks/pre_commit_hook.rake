@@ -2,7 +2,7 @@
 
 require 'fileutils'
 
-namespace :pre_commit_hook do
+namespace :pre_commit_hook do # rubocop:disable Metrics/BlockLength
   task init: :environment do
     check_and_create
   end
@@ -57,7 +57,7 @@ namespace :pre_commit_hook do
     end
   end
 
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Layout/LineLength
   def pre_commit_hook_text
     %q(#!/bin/bash
     ## START PRECOMMIT HOOK
@@ -94,5 +94,5 @@ namespace :pre_commit_hook do
     fi
     exit)
   end
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength, Layout/LineLength
 end

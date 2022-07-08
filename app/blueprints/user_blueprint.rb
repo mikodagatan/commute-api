@@ -5,6 +5,6 @@ class UserBlueprint < Blueprinter::Base
   field :email
 
   view :normal do
-    association :profile, blueprint: ProfileBlueprint
+    association :profile, blueprint: ProfileBlueprint, default: {}
   end
 end

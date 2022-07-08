@@ -12,5 +12,5 @@ class LoginBlueprint < Blueprinter::Base
     options[:token]
   end
 
-  association :profile, blueprint: ProfileBlueprint, view: :normal
+  association :profile, blueprint: ProfileBlueprint
 end

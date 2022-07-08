@@ -4,6 +4,7 @@ module Formats
   class DateTime
     class << self
       # NOTE: Code to look at.
+      # To create as a gem.
       FORMATS = {
         default: '%d-%m-%Y',
         jwt: '%m-%d-%Y %H:%M',
