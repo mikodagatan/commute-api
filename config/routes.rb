@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  namespace :api do # TODO: Change to v1 and folders and module names
+  namespace :v1 do # TODO: Change to v1 and folders and module names
     post '/auth/login', to: 'auth#login'
     resources :users, except: %i[new edit] do
       resource :profile, only: %i[create update]

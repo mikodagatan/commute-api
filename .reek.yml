@@ -30,6 +30,10 @@ detectors:
   InstanceVariableAssumption:
     enabled: false
 
+  UncommunicativeModuleName:
+    accept:
+      - V1
+
 directories:
   "db/":
     FeatureEnvy:

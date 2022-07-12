@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
-module API
+module V1
   module Transport
     class DriverProfilesController < ApplicationController
       before_action :driver, except: %i[index create]
 
-      # GET api/transport/drivers
       def index
         # TODO
         @drivers = ::Transport::DriverProfile.all
@@ -22,7 +21,6 @@ module API
         end
       end
 
-      # PATCH api/transport/drivers/{uuid}
       def update
         if @driver.update(driver_params)
           render Respo.update_success(@driver)
@@ -31,7 +29,6 @@ module API
         end
       end
 
-      # DELETE api/transport/drivers/{uuid}
       def destroy
         if @driver.delete
           render Respo.destroy_success(@driver)

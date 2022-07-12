@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module API
+module V1
   # Responsible for handling CRUD of User.
   class UsersController < ApplicationController
     before_action :authorize_request, except: :create

@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-module API
+module V1
   module Transport
     class CompaniesController < ApplicationController
       before_action :company, except: %i[create index]
 
       def index
         @companies = ::Transport::Company.all
-        render Respo.show_success(@companies, view: :normal)
+        render Respo.show_success(@companies)
       end
 
       def show
