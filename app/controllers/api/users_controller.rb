@@ -9,39 +9,39 @@ module API
     # GET /api/users
     def index
       @users = User.includes(:profile).all
-      render ::Response.show_success(@users, view: :normal)
+      render Respo.index_success(@users)
     end
 
     # GET /api/users/{uuid}
     def show
-      render ::Response.show_success(@users, view: :normal)
+      render Respo.show_success(@user)
     end
 
     # POST /api/users
     def create
       @user = User.new(user_params)
       if @user.save
-        render ::Response.create_success(@user)
+        render Respo.create_success(@user)
       else
-        render ::Response.create_error(@user)
+        render Respo.create_error(@user)
       end
     end
 
     # PATCH /api/users/{uuid}
     def update
       if @user.update(update_params)
-        render ::Response.update_success(@user)
+        render Respo.update_success(@user)
       else
-        render ::Response.update_error(@user)
+        render Respo.update_error(@user)
       end
     end
 
     # DELETE /api/users/{uuid}
     def destroy
       if @user.delete
-        render ::Response.destory_success(@user)
+        render Respo.destory_success(@user)
       else
-        render ::Response.destroy_error
+        render Respo.destroy_error
       end
     end
 
@@ -50,8 +50,6 @@ module API
     # Find user through UUID
     def user
       @user ||= User.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      not_found_error
     end
 
     def user_params

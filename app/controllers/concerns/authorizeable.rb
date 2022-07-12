@@ -3,6 +3,10 @@
 module Authorizeable
   extend ActiveSupport::Concern
 
+  included do
+    before_action :authorize_request
+  end
+
   def authorize_request
     header = request.headers['Authorization']
     token = header.split.last if header

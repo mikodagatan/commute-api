@@ -2,7 +2,7 @@
 
 module API
   class AuthController < ApplicationController
-    before_action :authorize_request, except: :login
+    skip_before_action :authorize_request, only: :login
     before_action :user
 
     # POST /api/auth/login
@@ -24,8 +24,6 @@ module API
 
     def user
       @user ||= User.find_by!(email: params[:email])
-    rescue ActiveRecord::RecordNotFound
-      render ::Response.not_found_error(custom_name: 'User')
     end
   end
 end

@@ -10,7 +10,7 @@ module API
       if @profile.save
         render json: ProfileBlueprint.render(@profile), status: :created
       else
-        render ::Response.create_error(@profile)
+        render Respo.create_error(@profile)
       end
     end
 
@@ -20,7 +20,7 @@ module API
       if @profile.update(profile_params)
         render json: ProfileBlueprint.render(@profile)
       else
-        render ::Response.update_error(@profile)
+        render Respo.update_error(@profile)
       end
     end
 
@@ -33,8 +33,6 @@ module API
 
     def user
       @user ||= User.find(params[:user_id] || params[:id])
-    rescue ActiveRecord::RecordNotFound
-      not_found_error('User')
     end
 
     def profile_params
